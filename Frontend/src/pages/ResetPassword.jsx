@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const API_BASE_URL = "http://localhost:5000/api/auth";
+const API_BASE_URL = "https://library-management-system-4x8a.onrender.com/api/auth";
 
 const ResetPassword = () => {
   const { token } = useParams();

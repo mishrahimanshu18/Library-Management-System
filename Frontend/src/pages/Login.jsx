@@ -30,7 +30,7 @@ import { useAuth } from "../shared/AuthContext";
 // ==========================================
 
 const API_BASE_URL =
-  "http://localhost:5000/api/auth";
+  "https://library-management-system-4x8a.onrender.com/api/auth";
 
 
 // ==========================================

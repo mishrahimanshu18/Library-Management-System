@@ -10,7 +10,7 @@ const AuthContext = createContext(null);
 const SESSION_KEY = "library-auth-session";
 const TOKEN_KEY = "library-auth-token";
 
-const API_BASE_URL = "http://localhost:5000/api/auth";
+const API_BASE_URL = "https://library-management-system-4x8a.onrender.com/api/auth";
 
 const defaultAccounts = [];
 
@@ -271,7 +271,7 @@ export const AuthProvider = ({ children }) => {
       return {
         ok: false,
         error:
-          "Server connection failed. Please ensure the backend is running on http://localhost:5000",
+          "Server connection failed. Please ensure the backend is running.",
       };
     }
   };
