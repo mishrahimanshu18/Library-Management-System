@@ -6,7 +6,7 @@ const sendOtp = async (email, otp) => {
 
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
       throw new Error(
-        "EMAIL_USER or EMAIL_PASS is missing in .env"
+        "EMAIL_USER or EMAIL_PASS is missing in environment variables"
       );
     }
 
@@ -18,9 +18,7 @@ const sendOtp = async (email, otp) => {
       },
     });
 
-    // await transporter.verify();
-
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Library Management System" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Library Management System - Password Reset OTP",
@@ -37,7 +35,7 @@ const sendOtp = async (email, otp) => {
           margin:0;
           padding:30px;
           background:#f5f0e5;
-          font-family:Arial, sans-serif;
+          font-family:Arial,sans-serif;
         ">
 
           <div style="
@@ -49,25 +47,13 @@ const sendOtp = async (email, otp) => {
             box-shadow:0 5px 20px rgba(0,0,0,0.08);
           ">
 
-            <h2 style="
-              color:#143d2e;
-              margin-bottom:10px;
-            ">
+            <h2 style="color:#143d2e;">
               Library Management System
             </h2>
 
-            <h3 style="
-              color:#222;
-              margin-top:25px;
-            ">
-              Password Reset Request
-            </h3>
+            <h3>Password Reset Request</h3>
 
-            <p style="
-              color:#555;
-              font-size:15px;
-              line-height:1.6;
-            ">
+            <p style="color:#555;line-height:1.6;">
               You requested to reset your password.
               Use the OTP below to continue.
             </p>
@@ -92,17 +78,11 @@ const sendOtp = async (email, otp) => {
 
             </div>
 
-            <p style="
-              color:#777;
-              font-size:14px;
-            ">
+            <p style="color:#777;">
               This OTP is valid for <strong>5 minutes</strong>.
             </p>
 
-            <p style="
-              color:#777;
-              font-size:14px;
-            ">
+            <p style="color:#777;">
               If you did not request a password reset,
               you can safely ignore this email.
             </p>
@@ -113,10 +93,7 @@ const sendOtp = async (email, otp) => {
               margin:25px 0;
             " />
 
-            <p style="
-              color:#999;
-              font-size:12px;
-            ">
+            <p style="color:#999;font-size:12px;">
               Library Management System
             </p>
 
@@ -128,9 +105,9 @@ const sendOtp = async (email, otp) => {
     });
 
     console.log("Password reset OTP sent successfully");
+    console.log("Message ID:", info.messageId);
 
-    return true;
-
+    return info;
   } catch (error) {
     console.error("Send OTP Error:", error);
     throw error;
