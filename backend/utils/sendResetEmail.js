@@ -3,38 +3,33 @@ import { createTransport } from "nodemailer";
 const sendResetEmail = async (email, resetToken) => {
   console.log("Sending password reset email to:", email);
 
+  // Check environment variables
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    throw new Error("EMAIL_USER or EMAIL_PASS is missing in .env");
+    throw new Error(
+      "EMAIL_USER or EMAIL_PASS is missing in environment variables"
+    );
   }
 
+  // Production frontend URL
   const resetLink =
-    `http://localhost:5173/reset-password/${resetToken}`;
+    `https://library-management-system-snowy-six.vercel.app/reset-password/${resetToken}`;
 
+  // Gmail transporter
   const transporter = createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+    service: "gmail",
 
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-
-    requireTLS: true,
-
-    connectionTimeout: 20000,
-    greetingTimeout: 20000,
-    socketTimeout: 30000,
   });
 
-  // Test SMTP connection
-  await transporter.verify();
-
-  console.log("Gmail SMTP connection successful");
-
+  // Send email
   const info = await transporter.sendMail({
     from: `"Library Management System" <${process.env.EMAIL_USER}>`,
+
     to: email,
+
     subject: "Library Management System - Password Reset",
 
     html: `
