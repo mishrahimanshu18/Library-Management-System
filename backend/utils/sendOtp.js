@@ -18,7 +18,7 @@ const sendOtp = async (email, otp) => {
       },
     });
 
-    await transporter.verify();
+    // await transporter.verify();
 
     await transporter.sendMail({
       from: `"Library Management System" <${process.env.EMAIL_USER}>`,
